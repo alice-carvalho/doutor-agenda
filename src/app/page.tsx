@@ -1,9 +1,5 @@
-const HomePage = () => {
-  return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold">bootcamp</h1>
-    </div>
-  );
-};
+import { Button } from "@/components/ui/button";
 
-export default HomePage;
+export default function HomePage() {
+  return <Button>Bootcamp!</Button>;
+}
