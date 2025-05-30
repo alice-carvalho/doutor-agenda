@@ -1,7 +1,8 @@
 "use server";
 
 import dayjs from "dayjs";
-import  utc  from "dayjs/plugin/utc";
+import utc from "dayjs/plugin/utc";
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
 import db from "@/db";
@@ -61,4 +62,6 @@ export const upsertDoctor = actionClient
           availableToTime: availableToTimeInUtc.format("HH:mm:ss"),
         },
       });
+
+    revalidatePath("/doctors");
   });

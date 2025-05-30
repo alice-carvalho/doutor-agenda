@@ -40,7 +40,7 @@ const formSchema = z
     name: z.string().trim().min(1, {
       message: "Nome é obrigatório.",
     }),
-    speciality: z.string().trim().min(1, {
+    specialty: z.string().trim().min(1, {
       message: "Especialidade é obrigatória.",
     }),
     appointmentPrice: z.number().min(1, {
@@ -66,16 +66,16 @@ const formSchema = z
     },
   );
 
-  interface UpsertDoctorFormProps {
-    onSuccess?: () => void;
-  }
+interface UpsertDoctorFormProps {
+  onSuccess?: () => void;
+}
 
 const UpsertDoctorForm = ({ onSuccess }: UpsertDoctorFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      speciality: "",
+      specialty: "",
       appointmentPrice: 0,
       availableFromWeekDay: "1",
       availableToWeekDay: "5",
@@ -127,7 +127,7 @@ const UpsertDoctorForm = ({ onSuccess }: UpsertDoctorFormProps) => {
           />
           <FormField
             control={form.control}
-            name="speciality"
+            name="specialty"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Especialidade</FormLabel>
