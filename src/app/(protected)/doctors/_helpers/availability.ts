@@ -9,21 +9,20 @@ dayjs.extend(utc);
 dayjs.locale("pt-br");
 
 export const getAvailability = (doctor: typeof doctorsTable.$inferSelect) => {
-  const from = dayjs()
-    .utc()
-    .day(doctor.availableFromWeekDay)
+  // Começamos com o domingo (dia 0)
+  const baseDate = dayjs().startOf("week");
+
+  const from = baseDate
+    .add(doctor.availableFromWeekDay, "day")
     .set("hour", Number(doctor.availableFromTime.split(":")[0]))
     .set("minute", Number(doctor.availableFromTime.split(":")[1]))
-    .set("second", Number(doctor.availableFromTime.split(":")[2] || 0))
-    .local();
+    .set("second", Number(doctor.availableFromTime.split(":")[2] || 0));
 
-  const to = dayjs()
-    .utc()
-    .day(doctor.availableToWeekDay)
+  const to = baseDate
+    .add(doctor.availableToWeekDay, "day")
     .set("hour", Number(doctor.availableToTime.split(":")[0]))
     .set("minute", Number(doctor.availableToTime.split(":")[1]))
-    .set("second", Number(doctor.availableToTime.split(":")[2] || 0))
-    .local();
+    .set("second", Number(doctor.availableToTime.split(":")[2] || 0));
 
   return {
     from,
