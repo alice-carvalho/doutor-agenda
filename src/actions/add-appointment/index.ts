@@ -33,12 +33,11 @@ export const addAppointment = actionClient
       throw new Error("Não foi possível obter os horários disponíveis");
     }
     const isTimeAvailable = availableTimes.data?.some(
-      (time) => time.value === parsedInput.time && time.available
+      (time) => time.value === parsedInput.time && time.available,
     );
     if (!isTimeAvailable) {
       throw new Error("Horário indisponível");
     }
-
 
     const appointmentDateTime = dayjs(parsedInput.date)
       .set("hour", parseInt(parsedInput.time.split(":")[0]))
