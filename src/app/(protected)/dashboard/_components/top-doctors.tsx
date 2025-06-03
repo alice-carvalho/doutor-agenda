@@ -3,7 +3,7 @@ import { Stethoscope } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 
-interface DoctorsListProps {
+interface TopDoctorsProps {
   doctors: {
     id: string;
     name: string;
@@ -13,7 +13,7 @@ interface DoctorsListProps {
   }[];
 }
 
-export default function TopDoctors({ doctors }: DoctorsListProps) {
+export default function TopDoctors({ doctors }: TopDoctorsProps) {
   return (
     <Card className="mx-auto w-full">
       <CardContent>
