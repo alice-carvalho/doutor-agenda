@@ -2,6 +2,7 @@
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Check, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useAction } from "next-safe-action/hooks";
 
 import { createStripeCheckout } from "@/actions/create-stripe-checkout";
@@ -12,12 +13,15 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 interface SubscriptionPlanProps {
   active?: boolean;
   className?: string;
+  userEmail: string;
 }
 
 export function SubscriptionPlan({
   active = false,
   className,
+  userEmail,
 }: SubscriptionPlanProps) {
+  const router = useRouter();
   const createStripeCheckoutAction = useAction(createStripeCheckout, {
     onSuccess: async ({ data }) => {
       if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
@@ -50,6 +54,12 @@ export function SubscriptionPlan({
     createStripeCheckoutAction.execute();
   };
 
+  const handleManagePlanClick = () => {
+    router.push(
+      `${process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${userEmail}`,
+    );
+  };
+
   return (
     <Card className={className}>
       <CardHeader>
@@ -74,8 +84,8 @@ export function SubscriptionPlan({
         <div className="space-y-4 border-t border-gray-200 pt-6">
           {features.map((feature, index) => (
             <div key={index} className="flex items-start">
-              <div className="flex-shrink-0 w-5 h-5 rounded-full bg-teal-100 flex items-center justify-center">
-              <Check className="w-3 h-3 text-teal-600" />
+              <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-teal-100">
+                <Check className="h-3 w-3 text-teal-600" />
               </div>
               <p className="ml-3 text-gray-600">{feature}</p>
             </div>
@@ -86,7 +96,7 @@ export function SubscriptionPlan({
           <Button
             className="w-full"
             variant="outline"
-            onClick={active ? () => {} : handleSubscribeClick}
+            onClick={active ? handleManagePlanClick : handleSubscribeClick}
             disabled={createStripeCheckoutAction.isExecuting}
           >
             {createStripeCheckoutAction.isExecuting ? (
