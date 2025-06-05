@@ -18,7 +18,6 @@ import { auth } from "@/lib/auth";
 import AddAppointmentButton from "./_components/add-appointment-button";
 import { AppointmentsTable } from "./_components/appointments-table";
 
-
 const AppointmentsPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -28,6 +27,10 @@ const AppointmentsPage = async () => {
   }
   if (!session.user.clinic) {
     redirect("/clinic-form");
+  }
+
+  if (!session.user.plan) {
+    redirect("/new-subscription");
   }
 
   const [patients, doctors, appointments] = await Promise.all([
@@ -45,8 +48,6 @@ const AppointmentsPage = async () => {
       },
     }),
   ]);
-
- 
 
   return (
     <PageContainer>
