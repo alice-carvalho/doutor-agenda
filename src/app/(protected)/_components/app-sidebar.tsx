@@ -3,7 +3,6 @@
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import {
   CalendarDays,
-  CreditCard,
   Gem,
   LayoutDashboard,
   LogOut,
@@ -99,12 +98,15 @@ export function AppSidebar() {
           <SidebarGroupLabel>Outros</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-                <SidebarMenuItem >
-                  <SidebarMenuButton asChild isActive={pathname === '/subscription'}>
-                    <Link href="/subscription">
-                    <Gem/>
-                      <span>Assinatura</span>
-                    </Link>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname === "/subscription"}
+                >
+                  <Link href="/subscription">
+                    <Gem />
+                    <span>Assinatura</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -116,12 +118,14 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton size="lg" >
+                <SidebarMenuButton size="lg">
                   <Avatar>
                     <AvatarFallback>F</AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="text-sm">{session.data?.user?.clinic?.name}</p>
+                    <p className="text-sm">
+                      {session.data?.user?.clinic?.name}
+                    </p>
                     <p className="text-muted-foreground text-sm">
                       {session.data?.user?.email}
                     </p>
