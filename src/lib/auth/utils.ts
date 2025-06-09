@@ -10,7 +10,7 @@ export async function getUserClinicId() {
     redirect("/auth/login");
   }
 
-  const clinicId = cookies().get("clinic_id")?.value;
+  const clinicId = (await cookies()).get("clinic_id")?.value;
 
   if (!clinicId) {
     redirect("/clinics/select");
